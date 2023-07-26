@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, FileResponse
 from .banking import generate_dashboard
-from .rendering import print_cairo_version, get_blank_surface_bytes
+from .rendering import get_hello_world_jpg_bytes
 
 
 def plaid_link(request):
@@ -22,7 +22,7 @@ def plaid_link(request):
 
 
 def cairo_test(request):
-    bytes = get_blank_surface_bytes()
+    bytes = get_hello_world_jpg_bytes()
     return FileResponse(bytes, as_attachment=True, filename='blank.jpg')
 
 

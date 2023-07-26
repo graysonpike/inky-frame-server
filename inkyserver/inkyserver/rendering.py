@@ -3,19 +3,23 @@ from io import BytesIO
 from PIL import Image
 
 
+WIDTH = 800
+HEIGHT = 480
+
+
 def print_cairo_version():
     print(f"The cairo version is {cairo.cairo_version_string()}.")
 
 
-def get_blank_surface_bytes():
-    surface = cairo.ImageSurface(cairo.FORMAT_RGB24, 500, 500)
+def get_hello_world_jpg_bytes():
+    surface = cairo.ImageSurface(cairo.FORMAT_RGB24, WIDTH, HEIGHT)
     ctx = cairo.Context(surface)
 
     # Set the colour (white)
     ctx.set_source_rgb(1, 1, 1)
 
     # Draw a rectangle the size of the surface
-    ctx.rectangle(0, 0, 500, 500)
+    ctx.rectangle(0, 0, WIDTH, HEIGHT)
 
     # Fill the rectangle
     ctx.fill()
@@ -25,13 +29,16 @@ def get_blank_surface_bytes():
 
     # Set the font and size
     ctx.select_font_face("Arial", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-    ctx.set_font_size(25)
+    ctx.set_font_size(65)
 
     # Draw the text
-    ctx.move_to(100, 100)  # move to position
+    extents = ctx.text_extents("Hello, World!")
+    print("Extents:")
+    print(extents)
+    ctx.move_to((WIDTH/2) - (extents[2]/2), (HEIGHT/2) + (extents[3]/2))
     ctx.show_text("Hello, World!")
     surface.write_to_png("hello_world.png")
-    image = Image.frombuffer('RGBA', (500, 500), surface.get_data(), 'raw', 'BGRA', 0, 1)
+    image = Image.frombuffer('RGBA', (WIDTH, HEIGHT), surface.get_data(), 'raw', 'BGRA', 0, 1)
     image = image.convert('RGB')
     bytes = BytesIO()
     image.save(bytes, format='JPEG')
