@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buttons Page</title>
+    <style>
+        .center {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            gap: 20px;
+        }
+        form {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <form method="post" action="{% url 'plaid_link' %}">
+            {% csrf_token %}
+            <input type="hidden" name="test_field" value="test_value_1">
+            <input type="submit" value="Link Chase Account">
+        </form>
+        <form method="post" action="{% url 'plaid_link' %}">
+            {% csrf_token %}
+            <input type="hidden" name="test_field" value="test_value_2">
+            <input type="submit" value="Link American Express Cards">
+        </form>
+        <form method="post" action="{% url 'plaid_link' %}">
+            {% csrf_token %}
+            <input type="hidden" name="test_field" value="test_value_3">
+            <input type="submit" value="Link American Express HY Savings">
+        </form>
+    </div>
+</body>
+</html>
