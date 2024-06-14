@@ -1,0 +1,6 @@
+fastapi==0.111.0
+pydantic==2.7.3
+pydantic-settings==2.3.2
+pillow==10.3.0
+cairocffi==1.7.0
+pycairo==1.26.0

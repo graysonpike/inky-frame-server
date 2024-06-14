@@ -2,16 +2,11 @@ import cairocffi as cairo
 from io import BytesIO
 from PIL import Image
 
-
 WIDTH = 800
 HEIGHT = 480
 
 
-def print_cairo_version():
-    print(f"The cairo version is {cairo.cairo_version_string()}.")
-
-
-def get_hello_world_jpg_bytes():
+def get_hello_world_jpg() -> BytesIO:
     surface = cairo.ImageSurface(cairo.FORMAT_RGB24, WIDTH, HEIGHT)
     ctx = cairo.Context(surface)
 
@@ -40,8 +35,7 @@ def get_hello_world_jpg_bytes():
     surface.write_to_png("hello_world.png")
     image = Image.frombuffer('RGBA', (WIDTH, HEIGHT), surface.get_data(), 'raw', 'BGRA', 0, 1)
     image = image.convert('RGB')
-    bytes = BytesIO()
-    image.save(bytes, format='JPEG')
-    bytes.seek(0)
-    return bytes
-
+    byte_stream = BytesIO()
+    image.save(byte_stream, format='JPEG')
+    byte_stream.seek(0)
+    return byte_stream
