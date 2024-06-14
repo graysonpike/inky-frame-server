@@ -32,7 +32,6 @@ def get_hello_world_jpg() -> BytesIO:
     print(extents)
     ctx.move_to((WIDTH/2) - (extents[2]/2), (HEIGHT/2) + (extents[3]/2))
     ctx.show_text("Hello, World!")
-    surface.write_to_png("hello_world.png")
     image = Image.frombuffer('RGBA', (WIDTH, HEIGHT), surface.get_data(), 'raw', 'BGRA', 0, 1)
     image = image.convert('RGB')
     byte_stream = BytesIO()
